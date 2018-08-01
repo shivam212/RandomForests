@@ -1,0 +1,11 @@
+library(ISLR)
+df <- College
+library(caTools)
+set.seed(101)
+sample <- sample.split(df$Private,SplitRatio = 0.7)
+train <- subset(df, sample == T)
+test <- subset(df, sample == F)
+library(randomForest)
+rf.model <- randomForest(Private ~ .,data = train,importance=T)
+rf.preds <- predict(rf.model,test)
+answes <- as.data.frame(rf.preds)
